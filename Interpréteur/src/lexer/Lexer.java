@@ -2,6 +2,8 @@ package lexer;
 import java.util.*;
 import java.io.*;
 
+import lexer.OPERAND.OP;
+
 public class Lexer {
 	private FileReader in;
 	private int i; // current ASCII character (coded as an integer)
@@ -40,7 +42,7 @@ public class Lexer {
 		return tokens;
 	}
 	
-	private Token getToken() throws UnexpectedCharacter, IOException {
+	protected Token getToken() throws UnexpectedCharacter, IOException {
 		switch (i){
 		case '\n' :
 			i = in.read();
@@ -62,29 +64,32 @@ public class Lexer {
 			return new Rpar();
 		case '=' :
 			i = in.read();
-			if(i == '=') return new OpEqual();
+			if(i == '=') {
+				i = in.read();
+				return new OPERAND(OP.EQUALS);
+			}
 			else return new Equal();
 		case '+' :
 			i = in.read();
-			return new OpPlus();
+			return new OPERAND(OP.PLUS);
 		case '-' :
 			i = in.read();
-			return new OpMoins();
+			return new OPERAND(OP.MINUS);
 		case '*' :
 			i = in.read();
-			return new OpMult();
+			return new OPERAND(OP.TIMES);
 		case '/' : 
 			i = in.read();
-			return new OpDiv();
+			return new OPERAND(OP.DIV);
 		case '<' :
 			i = in.read();
-			return new OpInf();
+			return new OPERAND(OP.LOWER);
 		case -1 : 
 			in.close();
 			return new EOF();
 		case '0' :
 			i = in.read();
-			return new Literal("0");
+			return new LITERAL("0");
 		default : 
 			return getKeyWord();
 		}
@@ -92,12 +97,12 @@ public class Lexer {
 	
 	private Token getKeyWord() throws UnexpectedCharacter, IOException {
 		if(Character.toString((char) i).matches("[0-9]")) 
-			return new Literal(lookForKeyword(TokenType.LITERAL));
+			return new LITERAL(lookForKeyword(TokenType.LITERAL));
 		else if(Character.toString((char) i).matches("[a-z]")) {
 			String sKwWord = lookForKeyword(TokenType.IDENTIFIER);
 			if (sKwWord.equals("define")) return new KwDefine();
-			else if (sKwWord.equals("if")) return new KwIf();
-			else return new Identifier(sKwWord);
+			else if (sKwWord.equals("if")) return new KWIF();
+			else return new IDENTIFIER(sKwWord);
 		}
 		throw new UnexpectedCharacter(i);
 	}
@@ -109,6 +114,10 @@ public class Lexer {
 			i = in.read();
 			return tmpKw + lookForKeyword(type);
 		} else return "";
+	}
+	
+	protected FileReader getFileReader() {
+		return this.in;
 	}
 }
 

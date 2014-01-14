@@ -1,25 +1,16 @@
 package calc;
-import java.util.*;
 
-import lexer.*;
+import lexer.SLexer;
+import parser.*;
 
 public class Calc {
-
-	/**
-	 * @param args - arg[0] is the filename of the file to interpret.
-	 */
-	public static void main(String[] args) {
-		List<Token> tokens;
-		
+	public static void main(String args[]) {
 		try {
-			Lexer lexer = new Lexer(args[0]);
-			tokens = lexer.lex(); 
-			// output of the result	
-			for (Token token : tokens) {
-				System.out.println(token);
+			  SLexer.init(args[0]); // initialisation du "lexer"
+			  Expression exp = Expression.parse(); // reconnaissance d'une expression
+			  System.out.println(exp); // affichage de l'arbre de syntaxe abstrait
+			} catch (Exception e) {
+			  e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }

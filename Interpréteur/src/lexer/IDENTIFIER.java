@@ -1,9 +1,9 @@
 package lexer;
 
-public class Identifier extends Token {
-	private String value;
+public class IDENTIFIER extends Token {
+	public String value;
 	
-	public Identifier(String value) {
+	public IDENTIFIER(String value) {
 		this.value = value;
 	}
 	

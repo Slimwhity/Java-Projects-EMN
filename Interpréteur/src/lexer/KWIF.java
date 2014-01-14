@@ -1,6 +1,6 @@
 package lexer;
 
-public class KwIf extends Token {
+public class KWIF extends Token {
 	public String toString() {
 		return "KWIf";
 	}
