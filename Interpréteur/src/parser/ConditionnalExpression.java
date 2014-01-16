@@ -15,4 +15,13 @@ public class ConditionnalExpression extends Expression {
 	public String toString() {
 		return super.toString() + '(' + exp1 + ", " + exp2 + ", " + exp3 + ')';
 	}
+
+	@Override
+	public int eval() throws EvaluationError {
+		int cond = exp1.eval();
+		int caseTrue = exp2.eval();
+		int caseFalse = exp3.eval();
+		
+		return cond != 0 ? caseTrue : caseFalse;
+	}
 }

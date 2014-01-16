@@ -10,4 +10,8 @@ public class Literal extends Expression {
 	public String toString() {
 		return super.toString() + '(' + Integer.toString(value) + ')';
 	}
+	
+	public int eval() {
+		return this.value;
+	}
 }

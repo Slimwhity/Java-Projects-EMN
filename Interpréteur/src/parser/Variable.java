@@ -10,4 +10,11 @@ public class Variable extends Expression {
 	public String toString() {
 		return super.toString() + "(\"" + this.name + "\")";
 	}
+
+	@Override
+	public int eval() throws EvaluationError {
+		return 0;
+	}
+	
+	
 }

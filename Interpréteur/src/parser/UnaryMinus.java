@@ -11,4 +11,9 @@ public class UnaryMinus extends Expression {
 		return super.toString() + '(' + exp + ')';
 	}
 
+	@Override
+	public int eval() throws EvaluationError {
+		return - exp.eval();
+	}
+
 }

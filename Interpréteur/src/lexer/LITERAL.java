@@ -10,5 +10,6 @@ public class LITERAL extends Token {
 	public String toString() {
 		return "Literal("+ value+')';
 	}
+
 	
 }

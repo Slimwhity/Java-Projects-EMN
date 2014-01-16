@@ -69,5 +69,7 @@ public abstract class Expression extends AST {
 	public String toString() {
 		return this.getClass().getSimpleName();
 	}
+	
+	public abstract int eval() throws EvaluationError; 
 
 }
