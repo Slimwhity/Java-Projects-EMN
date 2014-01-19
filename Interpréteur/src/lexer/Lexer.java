@@ -89,6 +89,7 @@ public class Lexer {
 			return new EOF();
 		case '0' :
 			i = in.read();
+			if (Character.toString((char) i).matches("[0-9]")) throw new UnexpectedCharacter(i);
 			return new LITERAL("0");
 		default : 
 			return getKeyWord();
@@ -100,7 +101,7 @@ public class Lexer {
 			return new LITERAL(lookForKeyword(TokenType.LITERAL));
 		else if(Character.toString((char) i).matches("[a-z]")) {
 			String sKwWord = lookForKeyword(TokenType.IDENTIFIER);
-			if (sKwWord.equals("define")) return new KwDefine();
+			if (sKwWord.equals("define")) return new KWDEFINE();
 			else if (sKwWord.equals("if")) return new KWIF();
 			else return new IDENTIFIER(sKwWord);
 		}

@@ -23,14 +23,17 @@ public class BinaryExpression extends Expression {
 		}
 	}
 	
-	public String toString() {
-		return super.toString() + '(' + operand + ',' + exp1 + ',' + exp2 + ')';
+	public String toString(String offset) {
+		offset += align();
+		return  this.getClass().getSimpleName() + '(' + operand + ',' +
+				'\n' + offset + exp1.toString(offset) + ',' +
+				'\n' + offset + exp2.toString(offset) + ')';
 	}
 
 	@Override
-	public int eval() throws EvaluationError {
-		int val1 = exp1.eval();
-		int val2 = exp2.eval();
+	public int eval(Env<Integer> envVar) throws EvaluationError {
+		int val1 = exp1.eval(envVar);
+		int val2 = exp2.eval(envVar);
 		switch (operand) {
 		case PLUS :  return val1 + val2;
 		case DIV:

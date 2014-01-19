@@ -1,6 +1,7 @@
 package parser;
 
 
+
 public class ConditionnalExpression extends Expression {
 	protected Expression exp1;
 	protected Expression exp2;
@@ -12,15 +13,18 @@ public class ConditionnalExpression extends Expression {
 		this.exp3 = exp3;
 	}
 	
-	public String toString() {
-		return super.toString() + '(' + exp1 + ", " + exp2 + ", " + exp3 + ')';
+	public String toString(String offset) {
+		offset += align();
+		return this.getClass().getSimpleName() + '(' + exp1.toString(offset) + ", " +
+				'\n' + offset + exp2.toString(offset) + ',' +
+				'\n' + offset + exp3.toString(offset) + ')';
 	}
 
 	@Override
-	public int eval() throws EvaluationError {
-		int cond = exp1.eval();
-		int caseTrue = exp2.eval();
-		int caseFalse = exp3.eval();
+	public int eval(Env<Integer> envVar) throws EvaluationError {
+		int cond = exp1.eval(envVar);
+		int caseTrue = exp2.eval(envVar);
+		int caseFalse = exp3.eval(envVar);
 		
 		return cond != 0 ? caseTrue : caseFalse;
 	}

@@ -1,5 +1,6 @@
 package parser;
 
+
 public class Literal extends Expression {
 	protected int value;
 	
@@ -7,11 +8,11 @@ public class Literal extends Expression {
 		this.value = value;
 	}
 	
-	public String toString() {
-		return super.toString() + '(' + Integer.toString(value) + ')';
+	public String toString(String offset) {
+		return this.getClass().getSimpleName() + '(' + Integer.toString(value) + ')';
 	}
 	
-	public int eval() {
+	public int eval(Env<Integer> envVar) {
 		return this.value;
 	}
 }

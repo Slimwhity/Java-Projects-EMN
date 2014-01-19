@@ -7,13 +7,13 @@ public class Variable extends Expression {
 		this.name = name;
 	}
 	
-	public String toString() {
-		return super.toString() + "(\"" + this.name + "\")";
+	public String toString(String offset) {
+		return this.getClass().getSimpleName() + "(\"" + name + "\")";
 	}
 
 	@Override
-	public int eval() throws EvaluationError {
-		return 0;
+	public int eval(Env<Integer> envVar) throws EvaluationError {
+		return envVar.lookup(name);
 	}
 	
 	
