@@ -9,6 +9,10 @@ public class Definition extends AST {
 		this.exp = exp;
 	}
 	
+	protected void parse() {
+		
+	}
+	
 	public void eval(Env<Integer> envVar) throws EvaluationError {
 		envVar.bind(variable.name, exp.eval(envVar));
 	}
