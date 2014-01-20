@@ -13,6 +13,7 @@ public class Literal extends Expression {
 	}
 	
 	public int eval(Env<Integer> envVar, Env<Function> envFunc) {
+		// retourne l'entier associé au litéral
 		return this.value;
 	}
 }

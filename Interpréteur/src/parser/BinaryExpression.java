@@ -29,7 +29,13 @@ public class BinaryExpression extends Expression {
 				'\n' + offset + exp1.toString(offset) + ',' +
 				'\n' + offset + exp2.toString(offset) + ')';
 	}
-
+	
+	
+	/*
+	 * Retourne l'évaluation de l'expression binaire.
+	 * Voir les différents comportements en fonction de l'Operand.
+	 * @see parser.Expression#eval(parser.Env, parser.Env)
+	 */
 	@Override
 	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
 		int val1 = exp1.eval(envVar, envFunc);

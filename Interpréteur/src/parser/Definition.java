@@ -6,6 +6,9 @@ import lexer.SLexer;
 import lexer.UnexpectedCharacter;
 
 public class Definition extends AST {
+	/*
+	 * Definition ::= '(' Equal Variable Expression ')'
+	 */
 	private Variable variable;
 	private Expression exp;
 	
@@ -19,12 +22,13 @@ public class Definition extends AST {
 			this.variable = (Variable) var;
 			this.exp = exp;
 			if (!(SLexer.getToken() instanceof lexer.Rpar)) {
-				throw new SyntacticError("Paranthèse droite manquante");
+				throw new SyntacticError("Missing right parenthesis in variable definition");
 			}
-		} else throw new SyntacticError("Définition variable : l'expression lue n'est pas une variable");
+		} else throw new SyntacticError("Variable definition error : not a Variable");
 	}
 	
 	public void eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
+		// Ajoute la variable définie dans l'environnement de variables.
 		envVar.bind(variable.identifier, exp.eval(envVar, envFunc));
 	}
 

@@ -1,7 +1,5 @@
 package parser;
 
-
-
 public class ConditionnalExpression extends Expression {
 	protected Expression exp1;
 	protected Expression exp2;
@@ -22,6 +20,7 @@ public class ConditionnalExpression extends Expression {
 
 	@Override
 	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
+		// Retourne exp2 si exp1 != 0, exp3 sinon
 		int cond = exp1.eval(envVar, envFunc);
 		int caseTrue = exp2.eval(envVar, envFunc);
 		int caseFalse = exp3.eval(envVar, envFunc);

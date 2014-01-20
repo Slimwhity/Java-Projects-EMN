@@ -13,6 +13,7 @@ public class Variable extends Expression {
 
 	@Override
 	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
+		// Retourne l'entier associé à la variable dans l'environnement de variables
 		return envVar.lookup(identifier);
 	}
 	

@@ -30,18 +30,22 @@ public class Function extends AST {
 	}
 
 	public void parse() throws IOException, UnexpectedCharacter {
+		// On délègue directement les traitements à Head et à body.
 		head.parse();
 		body.parse();
+		// Il faut simplement vérifier que la définition de la fonction se termine bien par un Rpar.
 		if (!(SLexer.getToken() instanceof Rpar)) throw new SyntacticError("Paranthèse droite manquante définition de la fonction " + head.funcName);
 		
 	}
 	
+	// Distinguo entre evaluation d'un appel et d'une définition de fonction
 	public void eval(Env<Integer> envVar, Env<Function> envFunc) {
+		// Ici on évalue la fonction, ce qui se concrétise par son ajout dans l'environnement de fonctions...
 		envFunc.bind(head.funcName, this);
 	}
 	
 	public int eval(List<Integer> params, Env<Function> envFunc) throws EvaluationError {
-		// Appel à eval de Head pour constituer l'environnement local à la fonction
+		// ... Ici on évalue son appel, via eval de Head pour constituer l'environnement local à la fonction
 		return body.eval(head.eval(params), envFunc);
 	}
  	

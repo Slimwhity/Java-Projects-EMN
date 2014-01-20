@@ -37,23 +37,37 @@ public class Head extends AST {
 
 	public void parse() throws IOException, UnexpectedCharacter {
 		Token firstToken = SLexer.getToken();
+		// Le 1er token doit ètre une Lpar
 		if (firstToken instanceof Lpar) {
 			Token secondToken = SLexer.getToken();
+			// Le token suivant est l'identiant de la fonction
 			if (secondToken instanceof IDENTIFIER) {
 				funcName = ((IDENTIFIER) secondToken).value;
-			} else throw new SyntacticError("Identifiant absent dans la définition d'une fonction");
+			} else throw new SyntacticError("Function definition : missing identifier");
+			/*
+			 * On va ensuite parser tous les arguments de la fonction
+			 * Les variables doivent être instance d'IDENTIFIER
+			 * La chaine de variables doit se terminer par une Rpar.
+			 */
 			boolean isVariable = true;
+			Token nextToken;
 			while (isVariable) {
-				Token nextToken = SLexer.getToken();
+				nextToken = SLexer.getToken();
 				if (nextToken instanceof IDENTIFIER) {
+					// On a identifié une Variable, on l'ajoute à la liste des arguments
 					Variable var = new Variable(((IDENTIFIER) nextToken).value);
 					args.add(var);
 				} else if (nextToken instanceof Rpar) isVariable = false;
-				else throw new SyntacticError("Définition de la fonction " + funcName);
+				else throw new SyntacticError("Function definition <" + funcName + "> invalid argument declaration");
 			}
-		}
+		} else throw new SyntacticError("Function definition : missing left parenthsis");
 	}
-
+	
+	/*
+	 * Cette méthode eval singulière permet de créer l'environnement local d'exécution de la fonction
+	 * Elle est utilisé lors de l'appel à la fonction
+	 * A chaque argument déclaré dans le Head, on associe la valeur entière du paramètre passé lors de l'appel
+	 */
 	public Env<Integer> eval(List<Integer> params) throws EvaluationError {
 		if (args.size() != params.size()) throw new EvaluationError("Incorrect args number for call to " + funcName);
 		Env<Integer> localEnv = new Env<Integer>();
