@@ -62,8 +62,11 @@ public class FunctionCall extends Expression {
 	@Override
 	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError { 
 		Function f = envFunc.lookup(calleeName);
+		if (f == null) throw new EvaluationError("Function call error : function "+ calleeName + " not found");
 		List<Integer> params = new ArrayList<Integer>(args.size());
-		for (Expression arg : args) params.add(arg.eval(envVar, envFunc));
+		for (Expression arg : args) {
+			params.add(arg.eval(envVar, envFunc));
+		}
 		return f.eval(params, envFunc);
 	}
 

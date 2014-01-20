@@ -22,9 +22,9 @@ public class Body extends AST {
 		 * Les erreurs sont traitées par Definition et
 		 * Expression.
 		 */
-		Token lpar = SLexer.getToken();
+		Token firstToken = SLexer.getToken();
 		// Le premier Token lu doit être une LPar
-		if (lpar instanceof lexer.Lpar) {
+		if (firstToken instanceof lexer.Lpar) {
 			Token second = SLexer.getToken();
 			// Le second token est un Equal
 			if (second instanceof lexer.Equal) {
@@ -42,7 +42,7 @@ public class Body extends AST {
 			}
 		} else {
 			// Cas ou le corps est un litéral ou une variable.
-			exp = Expression.parse(lpar);
+			exp = Expression.parse(firstToken);
 		}
 	}
 

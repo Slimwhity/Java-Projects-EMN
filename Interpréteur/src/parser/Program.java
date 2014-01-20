@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lexer.EOF;
 import lexer.Equal;
 import lexer.KWDEFINE;
 import lexer.Lpar;
@@ -23,6 +24,7 @@ public class Program extends AST {
 	}
 
 	public void parse() throws IOException, UnexpectedCharacter {
+		// Construit le programe principal. Un fois le corps parse, la fonction attend un token EOF.
 		Token firstToken = SLexer.getToken();
 		if (firstToken instanceof Lpar) {
 			Token secondToken = SLexer.getToken();
@@ -49,6 +51,7 @@ public class Program extends AST {
 				def.parse();
 				body.definitions.add(def);
 				body.parse();
+				if (!(SLexer.getToken() instanceof EOF)) throw new SyntacticError("Expression parsing error : EOF expected, found token");
 			} else {
 				/*
 				 * Cas d'un programme sans fonction et sans définition. On
@@ -56,6 +59,7 @@ public class Program extends AST {
 				 */
 				body = new Body();
 				body.exp = Expression.parseAfterLpar(secondToken);
+				if (!(SLexer.getToken() instanceof EOF)) throw new SyntacticError("Expression parsing error : EOF expected, found token");
 			}
 		} else {
 			/*
@@ -65,6 +69,7 @@ public class Program extends AST {
 			 */
 			body = new Body();
 			body.exp = Expression.parse(firstToken);
+			if (!(SLexer.getToken() instanceof EOF)) throw new SyntacticError("Expression parsing error : EOF expected, found token");
 		}
 	}
 
@@ -86,7 +91,7 @@ public class Program extends AST {
 	public int eval(Env<Integer> envVar, Env<Function> envFunc)
 			throws EvaluationError {
 		for (Function func : functions)
-			func.eval(envVar, envFunc);
+			func.eval(envFunc);
 		return body.eval(envVar, envFunc);
 
 	}

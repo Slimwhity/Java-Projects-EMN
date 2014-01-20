@@ -39,14 +39,15 @@ public class Function extends AST {
 	}
 	
 	// Distinguo entre evaluation d'un appel et d'une définition de fonction
-	public void eval(Env<Integer> envVar, Env<Function> envFunc) {
+	public void eval(Env<Function> envFunc) {
 		// Ici on évalue la fonction, ce qui se concrétise par son ajout dans l'environnement de fonctions...
 		envFunc.bind(head.funcName, this);
 	}
 	
 	public int eval(List<Integer> params, Env<Function> envFunc) throws EvaluationError {
 		// ... Ici on évalue son appel, via eval de Head pour constituer l'environnement local à la fonction
-		return body.eval(head.eval(params), envFunc);
+		Env<Integer> localEnv = head.eval(params);
+		return body.eval(localEnv, envFunc);
 	}
  	
 

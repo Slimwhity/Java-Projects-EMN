@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import lexer.Rpar;
 import lexer.SLexer;
+import lexer.Token;
 import lexer.OPERAND.OP;
 import lexer.UnexpectedCharacter;
 
@@ -17,9 +18,22 @@ public class BinaryExpression extends Expression {
 		this.exp2 = exp2;
 	}
 	
+	public BinaryExpression(OP operateur) {
+		this.operand = operateur;
+	}
+
 	public void parse_() throws IOException, UnexpectedCharacter {
-		if (!(SLexer.getToken() instanceof Rpar)) {
-			throw new UnexpectedCharacter(0);
+		// On parse la première expression
+		exp1 = Expression.parse(SLexer.getToken());
+		Token nextToken = SLexer.getToken();
+		if (nextToken instanceof Rpar) {
+			throw new SyntacticError("Binary expression : unexpected right parenthesis");
+		}
+		// Puis la deuxième
+		exp2 = Expression.parse(nextToken);
+		nextToken = SLexer.getToken();
+		if (!(nextToken instanceof Rpar)) {
+			throw new SyntacticError("Binary expression : missing right parenthesis");
 		}
 	}
 	
@@ -49,8 +63,8 @@ public class BinaryExpression extends Expression {
 		case LOWER: return val1 < val2 ? 1 : 0;
 		case MINUS: return val1 - val2;
 		case TIMES: return val1 * val2;
+		default : throw new EvaluationError("BynaryExpression error : undefined operator");
 		}
-		return 0;
 	}
 	
 	
