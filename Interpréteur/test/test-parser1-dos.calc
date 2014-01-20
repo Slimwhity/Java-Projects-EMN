@@ -1,3 +1,15 @@
+(define (functest x)
+	(= d 1)
+	(= e 3)
+	(+ x (/ e d))
+)
+
+(define (functest2 x)
+	(= d 1)
+	(= e 3)
+	(+ x (/ e d))
+)
+
 (= a (- 10 5))
 (= b (+ a 15))
 (= c (- (+ 2 2)))

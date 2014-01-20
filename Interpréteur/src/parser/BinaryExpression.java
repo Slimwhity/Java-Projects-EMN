@@ -31,9 +31,9 @@ public class BinaryExpression extends Expression {
 	}
 
 	@Override
-	public int eval(Env<Integer> envVar) throws EvaluationError {
-		int val1 = exp1.eval(envVar);
-		int val2 = exp2.eval(envVar);
+	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
+		int val1 = exp1.eval(envVar, envFunc);
+		int val2 = exp2.eval(envVar, envFunc);
 		switch (operand) {
 		case PLUS :  return val1 + val2;
 		case DIV:

@@ -21,10 +21,10 @@ public class ConditionnalExpression extends Expression {
 	}
 
 	@Override
-	public int eval(Env<Integer> envVar) throws EvaluationError {
-		int cond = exp1.eval(envVar);
-		int caseTrue = exp2.eval(envVar);
-		int caseFalse = exp3.eval(envVar);
+	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
+		int cond = exp1.eval(envVar, envFunc);
+		int caseTrue = exp2.eval(envVar, envFunc);
+		int caseFalse = exp3.eval(envVar, envFunc);
 		
 		return cond != 0 ? caseTrue : caseFalse;
 	}

@@ -12,7 +12,7 @@ public class Literal extends Expression {
 		return this.getClass().getSimpleName() + '(' + Integer.toString(value) + ')';
 	}
 	
-	public int eval(Env<Integer> envVar) {
+	public int eval(Env<Integer> envVar, Env<Function> envFunc) {
 		return this.value;
 	}
 }

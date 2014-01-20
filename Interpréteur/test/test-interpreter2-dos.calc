@@ -1,0 +1,13 @@
+(define (functest x y)
+	(= z (+ 2 1))
+	
+	(/ (* x z) (- y))
+)
+
+(define (funcinter x)
+	(* 3 x)
+)
+
+(= a 8)
+(= b 2)
+(functest a (funcinter b))

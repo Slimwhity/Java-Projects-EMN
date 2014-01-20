@@ -9,8 +9,8 @@ import lexer.Token;
 import lexer.UnexpectedCharacter;
 
 public class Body extends AST {
-	List<Definition> definitions;
-	Expression exp;
+	protected List<Definition> definitions;
+	protected Expression exp;
 	
 	public Body() {
 		definitions = new ArrayList<Definition>();
@@ -30,16 +30,9 @@ public class Body extends AST {
 				Token second = SLexer.getToken();
 				// Le second token est un Equal
 				if (second instanceof lexer.Equal) {
-					Expression var = Expression.parse(SLexer.getToken());
-					// On lit une variable puis une expression
-					if (var instanceof Variable) {
-						Expression exp = Expression.parse(SLexer.getToken());
-						Definition newDef = new Definition((Variable) var, exp);
-						definitions.add(newDef);
-						if (!(SLexer.getToken() instanceof lexer.Rpar)) {
-							throw new SyntacticError("Paranthèse droite manquante");
-						}
-					} else throw new SyntacticError("Définition variable : l'expression lue n'est pas une variable");
+					Definition newDef = new Definition();
+					newDef.parse();
+					definitions.add(newDef);
 				} else {
 					exp = Expression.parseLpar(second);
 					isDefinition = false;
@@ -56,15 +49,15 @@ public class Body extends AST {
 		offset += align();
 		String s = "Body("; 
 		for (Definition def : definitions) s += "\n" + offset + def.toString(offset);
-		s+= "\n\n" + offset + exp.toString(offset);
-		return s + "\n)";
+		s+= "\n\n" + offset + exp.toString(offset) + '\n' + offset + ')';
+		return s;
 	}
 	
-	public int eval(Env<Integer> envVar) throws EvaluationError {
+	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
 		for (Definition def : definitions) {
-			def.eval(envVar);
+			def.eval(envVar, envFunc);
 		}
-		return exp.eval(envVar);
+		return exp.eval(envVar, envFunc);
 	}
 
 }

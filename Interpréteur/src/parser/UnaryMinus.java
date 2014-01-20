@@ -13,8 +13,8 @@ public class UnaryMinus extends Expression {
 	}
 
 	@Override
-	public int eval(Env<Integer> envVar) throws EvaluationError {
-		return - exp.eval(envVar);
+	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
+		return - exp.eval(envVar, envFunc);
 	}
 
 }

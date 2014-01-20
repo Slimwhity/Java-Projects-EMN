@@ -1,22 +1,33 @@
 package parser;
 
+import java.io.IOException;
+
+import lexer.SLexer;
+import lexer.UnexpectedCharacter;
+
 public class Definition extends AST {
 	private Variable variable;
 	private Expression exp;
 	
-	public Definition(Variable var, Expression exp) {
-		variable = var;
-		this.exp = exp;
+	public Definition() {}
+
+	protected void parse() throws SyntacticError, IOException, UnexpectedCharacter {
+		Expression var = Expression.parse(SLexer.getToken());
+		// On lit une variable puis une expression
+		if (var instanceof Variable) {
+			Expression exp = Expression.parse(SLexer.getToken());
+			this.variable = (Variable) var;
+			this.exp = exp;
+			if (!(SLexer.getToken() instanceof lexer.Rpar)) {
+				throw new SyntacticError("Paranthèse droite manquante");
+			}
+		} else throw new SyntacticError("Définition variable : l'expression lue n'est pas une variable");
 	}
 	
-	protected void parse() {
-		
+	public void eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
+		envVar.bind(variable.identifier, exp.eval(envVar, envFunc));
 	}
-	
-	public void eval(Env<Integer> envVar) throws EvaluationError {
-		envVar.bind(variable.name, exp.eval(envVar));
-	}
- 	
+
 	public String toString() {
 		return "Definition(" + variable + ", " + exp + ')'; 
 	}
