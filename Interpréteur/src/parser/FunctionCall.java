@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import errors.EvaluationError;
+import errors.UnexpectedCharacter;
 import lexer.Rpar;
 import lexer.SLexer;
 import lexer.Token;
-import lexer.UnexpectedCharacter;
 
 public class FunctionCall extends Expression {
 	/*

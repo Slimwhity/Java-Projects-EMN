@@ -8,7 +8,7 @@ public class IDENTIFIER extends Token {
 	}
 	
 	public String toString() {
-		return "ID" + value;
+		return "IDENTIFIER(" + value+')';
 	}
 
 }

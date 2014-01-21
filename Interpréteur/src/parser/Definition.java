@@ -2,8 +2,10 @@ package parser;
 
 import java.io.IOException;
 
+import errors.EvaluationError;
+import errors.SyntacticError;
+import errors.UnexpectedCharacter;
 import lexer.SLexer;
-import lexer.UnexpectedCharacter;
 
 public class Definition extends AST {
 	/*

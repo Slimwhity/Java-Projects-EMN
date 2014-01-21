@@ -3,9 +3,11 @@ package parser;
 import java.io.IOException;
 import java.util.List;
 
+import errors.EvaluationError;
+import errors.SyntacticError;
+import errors.UnexpectedCharacter;
 import lexer.Rpar;
 import lexer.SLexer;
-import lexer.UnexpectedCharacter;
 
 public class Function extends AST {
 	/*

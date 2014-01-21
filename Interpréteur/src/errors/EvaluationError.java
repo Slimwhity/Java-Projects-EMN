@@ -1,4 +1,4 @@
-package parser;
+package errors;
 
 public class EvaluationError extends Exception {
 	/*

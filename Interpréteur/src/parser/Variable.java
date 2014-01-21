@@ -1,5 +1,7 @@
 package parser;
 
+import errors.EvaluationError;
+
 public class Variable extends Expression {
 	protected String identifier;
 	

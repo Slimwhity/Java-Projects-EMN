@@ -2,6 +2,7 @@ package lexer;
 import java.util.*;
 import java.io.*;
 
+import errors.UnexpectedCharacter;
 import lexer.OPERAND.OP;
 
 public class Lexer {

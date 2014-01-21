@@ -2,6 +2,8 @@ package lexer;
 
 import java.io.IOException;
 
+import errors.UnexpectedCharacter;
+
 public class SLexer {
 	private static Lexer lexer;
 	

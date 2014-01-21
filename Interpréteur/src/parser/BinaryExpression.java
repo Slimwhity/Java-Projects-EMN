@@ -1,11 +1,13 @@
 package parser;
 import java.io.IOException;
 
+import errors.EvaluationError;
+import errors.SyntacticError;
+import errors.UnexpectedCharacter;
 import lexer.Rpar;
 import lexer.SLexer;
 import lexer.Token;
 import lexer.OPERAND.OP;
-import lexer.UnexpectedCharacter;
 
 public class BinaryExpression extends Expression {
 	private OP operand;

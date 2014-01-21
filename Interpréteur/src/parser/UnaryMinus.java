@@ -1,5 +1,7 @@
 package parser;
 
+import errors.EvaluationError;
+
 public class UnaryMinus extends Expression {
 	protected Expression exp;
 	

@@ -1,11 +1,12 @@
 (define (fibonacci n)
 	(= fib1 (- n 1))
 	(= fib2 (- n 2))
- 	(if (< n 2)
+	(if (< n 2)
 		1
-		(+ (fibonacci fib1)
-		(fibonacci fib2)
+		(+	(fibonacci fib1)
+			(fibonacci fib2)
+		)
 	)
 )
+
 (fibonacci 5)
-  

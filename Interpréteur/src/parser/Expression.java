@@ -2,6 +2,9 @@ package parser;
 
 import java.io.IOException;
 
+import errors.EvaluationError;
+import errors.SyntacticError;
+import errors.UnexpectedCharacter;
 import lexer.*;
 import lexer.OPERAND.OP;
 
@@ -22,7 +25,7 @@ public abstract class Expression extends AST {
 		} else if (currentToken instanceof Lpar) {
 			return parseAfterLpar(SLexer.getToken());
 		} 
-		throw new SyntacticError("Expression parsing : unknown error");
+		throw new SyntacticError("Expression parsing : missing closing parenthesis in a function call");
 	}
 	
 	protected static Expression parseAfterLpar(Token token) throws SyntacticError, IOException, UnexpectedCharacter {

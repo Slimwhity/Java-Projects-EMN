@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import errors.EvaluationError;
+import errors.SyntacticError;
+import errors.UnexpectedCharacter;
 import lexer.EOF;
 import lexer.Equal;
 import lexer.KWDEFINE;
 import lexer.Lpar;
 import lexer.SLexer;
 import lexer.Token;
-import lexer.UnexpectedCharacter;
 
 public class Program extends AST {
 	/*

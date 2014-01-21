@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import errors.EvaluationError;
+import errors.UnexpectedCharacter;
 import lexer.SLexer;
 import lexer.Token;
-import lexer.UnexpectedCharacter;
 
 public class Body extends AST {
 	protected List<Definition> definitions;

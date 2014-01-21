@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import errors.EvaluationError;
+import errors.SyntacticError;
+import errors.UnexpectedCharacter;
 import lexer.IDENTIFIER;
 import lexer.Lpar;
 import lexer.Rpar;
 import lexer.SLexer;
 import lexer.Token;
-import lexer.UnexpectedCharacter;
 
 public class Head extends AST {
 	/*

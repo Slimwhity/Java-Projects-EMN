@@ -1,4 +1,4 @@
-package lexer;
+package errors;
 
 public class UnexpectedCharacter extends Exception {
 	private static final long serialVersionUID = 412257913973525333L;
