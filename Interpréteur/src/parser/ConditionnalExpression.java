@@ -38,8 +38,6 @@ public class ConditionnalExpression extends Expression {
 	@Override
 	public int eval(Env<Integer> envVar, Env<Function> envFunc) throws EvaluationError {
 		// Retourne exp2 si exp1 != 0, exp3 sinon
-		int cond = exp1.eval(envVar, envFunc);
-		if (cond != 0) return exp2.eval(envVar, envFunc);
-		else return exp3.eval(envVar, envFunc); 
+		return exp1.eval(envVar, envFunc) != 0 ? exp2.eval(envVar, envFunc) : exp3.eval(envVar, envFunc);
 	}
 }
